@@ -1,8 +1,75 @@
+import { useState } from 'react';
 import Chat from "../../components/Chat/Chat";
 import Contacts from "../../components/Contatcs/Contatcs";
-import { List, UserCircle } from "@phosphor-icons/react";
+import { List, User } from "@phosphor-icons/react";
+import InicialSreen from "../InicialSreen/InicialSreen"; // Importamos o componente de tela inicial
+
+const contactProfileImages = {
+  Vitor: "/src/assets/vitor.PNG",
+  "(84) 99617-1333": "/src/assets/sem-foto.png",
+  Thiago: "/src/assets/thiago.PNG",
+};
 
 const ControlPage = () => {
+  const initialContacts = ["Vitor", "(84) 99617-1333", "Thiago"];
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [contactsMessages, setContactsMessages] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleContactClick = (contact) => {
+    setSelectedContact(contact);
+    if (!contactsMessages[contact]) {
+      setContactsMessages({
+        ...contactsMessages,
+        [contact]: [],
+      });
+    }
+  };
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSendMessage = (contact, message) => {
+    const newMessage = {
+      sender: "Me",
+      content: message,
+      file: null,
+    };
+    setContactsMessages({
+      ...contactsMessages,
+      [contact]: [...contactsMessages[contact], newMessage],
+    });
+  };
+
+  const handleFileChange = (event, contact) => {
+    const file = event.target.files[0];
+    if (file && contact) {
+      const newMessage = {
+        sender: "Me",
+        content: file.name,
+        file: URL.createObjectURL(file),
+      };
+      setContactsMessages({
+        ...contactsMessages,
+        [contact]: [...contactsMessages[contact], newMessage],
+      });
+    }
+  };
+
+  const handleSendAudio = (audioBlob) => {
+    const url = URL.createObjectURL(audioBlob);
+    const newMessage = {
+      sender: "Me",
+      content: "Audio message",
+      file: url,
+    };
+    setContactsMessages({
+      ...contactsMessages,
+      [selectedContact]: [...contactsMessages[selectedContact], newMessage],
+    });
+  };
+
   return (
     <div className="flex flex-col h-screen">
       <div className="flex justify-between w-full px-4 py-3 md:px-20 md:py-6">
@@ -10,16 +77,38 @@ const ControlPage = () => {
           <List size={32} />
         </button>
         <button className="my-3">
-          <UserCircle size={32} />
+          <User size={32} color='green'/>
         </button>
+
       </div>
 
-      <div className="flex flex-col md:flex-row flex-1 bg-white p-4 mx-auto w-full md:w-3/4 lg:w-2/3">
-        <div className=" w-full md:w-1/4">
-          <Contacts />
+      <div className="flex flex-col md:flex-row flex-1 bg-white p-4 mx-auto w-full md:w-4/5 lg:w-3/4 xl:w-2/3">
+        <div className="w-full md:w-1/3 mb-4 md:mb-0">
+          <Contacts
+            contacts={initialContacts}
+            contactProfileImages={contactProfileImages}
+            selectedContact={selectedContact}
+            onContactClick={handleContactClick}
+            searchTerm={searchTerm}
+            onSearchChange={handleSearch}
+          />
         </div>
-        <div className="flex-1 mt-4 md:mt-0">
-          <Chat />
+        <div className="flex-1">
+          {selectedContact ? (
+            <Chat
+              selectedContact={selectedContact}
+              contactProfileImages={contactProfileImages}
+              contactsMessages={contactsMessages}
+              onSendMessage={handleSendMessage}
+              onFileChange={handleFileChange}
+              onSendAudio={handleSendAudio}
+            />
+            
+            
+
+          ) : (
+            <InicialSreen /> // Mostramos a tela inicial quando nenhum contato está selecionado
+          )}
         </div>
       </div>
     </div>
