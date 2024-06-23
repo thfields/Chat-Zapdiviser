@@ -47,20 +47,16 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
     setMessageInput(prevInput => prevInput + emojiObject.emoji);
   };
 
-
-    return (
-      <div className="chat-input p-4 flex items-center bg-white border-t border-gray-300">
-      <button  className="emoji-button mr-2  hover:text-green-500" onClick={toggleEmojiPicker}><Smiley size={32} /></button>
-      <EmojiPicker visible={showEmojiPicker} position={emojiPickerPosition} onClose={() => setShowEmojiPicker(false)} onEmojiClick={onEmojiClick} />
+  return (
+    <div className="chat-input p-2 flex items-center bg-white border-t border-gray-300">
+      <button className="emoji-button mr-1 hover:text-green-500" onClick={toggleEmojiPicker}><Smiley size={24} /></button>
+      <button className="mr-1 hover:text-green-500" onClick={() => document.getElementById('file-input').click()}><Paperclip size={24} /></button>
       <input
         type="file"
         id="file-input"
         className="hidden"
         onChange={(e) => onFileChange(e, selectedContact)}
       />
-      <button className="mr-2  hover:text-green-500" onClick={() => document.getElementById('file-input').click()}>
-        <Paperclip size={32} />
-      </button>
       <input
         type="text"
         className="message-input flex-grow py-2 px-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -70,9 +66,9 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
         onKeyPress={handleKeyPress}
       />
       <AudioRecorder onSendAudio={onSendAudio} />
+      <EmojiPicker visible={showEmojiPicker} position={emojiPickerPosition} onClose={() => setShowEmojiPicker(false)} onEmojiClick={onEmojiClick} />
     </div>
-    )
-  }
-  
-  export default ChatInput;
-  
+  );
+};
+
+export default ChatInput;

@@ -51,16 +51,16 @@ const AudioRecorder = ({ onSendAudio }) => {
     <div className="audio-recorder flex gap-4">
       {isRecording ? (
         <button onClick={stopRecording} className="px-4 py-2 rounded-lg shadow-md focus:outline-none text-red-500">
-          <Stop size={32} />
+          <Stop size={25} />
         </button>
       ) : (
-        <button onClick={startRecording} className="  px-4 py-2 rounded-lg shadow-md  focus:outline-none  hover:text-green-500">
-          <Microphone size={32} />
+        <button onClick={startRecording} className="  px-4 py-2  focus:outline-none  hover:text-green-500">
+          <Microphone size={25} />
         </button>
       )}
       {audioBlob && (
         <button onClick={sendAudio} className="  px-4 py-2 rounded-lg shadow-md  focus:outline-none  hover:text-green-500">
-          <PaperPlaneTilt size={32} />
+          <PaperPlaneTilt size={25} />
         </button>
       )}
     </div>

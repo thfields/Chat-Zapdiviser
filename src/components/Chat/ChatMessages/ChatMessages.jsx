@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { DownloadSimple } from "@phosphor-icons/react";
 
 const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlightedMessageIndex }) => {

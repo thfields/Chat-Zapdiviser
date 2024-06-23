@@ -27,13 +27,13 @@ const Contacts = ({ contacts, contactProfileImages, selectedContact, onContactCl
       </div>
       
       <div className="relative mb-4">
-        <MagnifyingGlass size={24} className="text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
+        <MagnifyingGlass size={24} className="text-green-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
         <input
           type="text"
           placeholder="Procurar"
           value={searchTerm}
           onChange={handleSearchChange}
-          className="pl-10 pr-4 py-2 border rounded-lg w-full"
+          className="pl-10 pr-4 py-2 border rounded-lg w-full border-gray-500 focus:outline-none hover:border-green-500 text-gray-900 placeholder-gray-500"
         />
       </div>
       <ul className="flex-1 overflow-y-auto">
