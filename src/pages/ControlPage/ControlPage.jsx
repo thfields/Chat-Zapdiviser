@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { User, List } from "@phosphor-icons/react";
-import ModalProfile from '../../components/Chat/Modals/ModalProfile';
-import Chat from "../../components/Chat/Chat";
-import Contacts from "../../components/Contacts/Contacts";
-import InicialScreen from "../InicialSreen/InicialSreen";
-import Thiago from "../../../src/assets/thiago.png";
-import Vitor from "../../../src/assets/vitor.png";
-import Rodrigo from "../../../src/assets/rodrigo.png";
-import Bruno from "../../../src/assets/bruno.png";
-import NoProfile from "../../../src/assets/sem-foto.png";
+import ModalProfile from '@/components/Chat/Modals/ModalProfile';
+import Chat from "@/components/Chat/Chat";
+import Contacts from "@/components/Contacts/Contacts";
+import InicialScreen from "@/pages/InicialSreen/InicialSreen";
+import Thiago from '@/assets/thiago.png';
+import Vitor from '@/assets/vitor.png';
+import Rodrigo from '@/assets/rodrigo.png';
+import Bruno from '@/assets/bruno.png';
+import NoProfile from '@/assets/sem-foto.png';
 
 const contactProfileImages = {
   Vitor: Vitor,
@@ -16,11 +16,11 @@ const contactProfileImages = {
   Thiago: Thiago,
   Bruno: Bruno,
   Rodrigo: Rodrigo,
-  Abner : NoProfile,
+  Abner: NoProfile,
 };
 
 const ControlPage = () => {
-  const initialContacts = ["Vitor", "Rickson", "Thiago", "Bruno" , "Rodrigo", "Abner"];
+  const initialContacts = ["Vitor", "Rickson", "Thiago", "Bruno", "Rodrigo", "Abner"];
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactsMessages, setContactsMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
