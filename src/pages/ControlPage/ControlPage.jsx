@@ -4,19 +4,15 @@ import ModalProfile from "../../components/Chat/Modals/ModalProfile";
 import Chat from "../../components/Chat/Chat";
 import Contacts from "../../components/Contacts/Contacts";
 import InicialScreen from "../InicialSreen/InicialSreen";
-import Thiago from "../../assets/thiago.png";
-import Vitor from "../../assets/vitor.png";
-import Rodrigo from "../../assets/rodrigo.png";
-import Bruno from "../../assets/bruno.png";
-import NoProfile from "../../assets/sem-foto.png";
+
 
 const contactProfileImages = {
-  Vitor: Vitor,
-  Rickson: NoProfile,
-  Thiago: Thiago,
-  Bruno: Bruno,
-  Rodrigo: Rodrigo,
-  Abner: NoProfile,
+  Vitor: "/src/assets/vitor.png",
+  Rickson: "/src/assets/sem-foto.png",
+  Thiago: "/src/assets/thiago.png",	
+  Bruno: "/src/assets/bruno.png",
+  Rodrigo: "/src/assets/rodrigo.png",
+  Abner: "/src/assets/sem-foto.png",
 };
 
 const ControlPage = () => {
