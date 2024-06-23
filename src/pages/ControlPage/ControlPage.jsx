@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { User, List } from "@phosphor-icons/react";
+import ModalProfile from '../../components/Chat/Modals/ModalProfile';
 import Chat from "../../components/Chat/Chat";
 import Contacts from "../../components/Contatcs/Contatcs";
-import { List, User } from "@phosphor-icons/react";
-import InicialSreen from "../InicialSreen/InicialSreen"; // Importamos o componente de tela inicial
+import InicialScreen from "../InicialSreen/InicialSreen";
 
 const contactProfileImages = {
   Vitor: "/src/assets/vitor.PNG",
@@ -15,6 +16,11 @@ const ControlPage = () => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactsMessages, setContactsMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [isModalProfileOpen, setIsModalProfileOpen] = useState(false);
+
+  const toggleModalProfile = () => {
+    setIsModalProfileOpen(!isModalProfileOpen);
+  };
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
@@ -76,10 +82,18 @@ const ControlPage = () => {
         <button className="my-3">
           <List size={32} />
         </button>
-        <button className="my-3">
+        <button className="my-3" onClick={toggleModalProfile}>
           <User size={32} color='green'/>
         </button>
-
+        {isModalProfileOpen && (
+          <ModalProfile
+            isOpen={isModalProfileOpen}
+            onClose={() => setIsModalProfileOpen(false)}
+            onVerPerfil={() => console.log("Ver perfil")}
+            onConfiguracoes={() => console.log("Configurações")}
+            onSair={() => console.log("Sair")}
+          />
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row flex-1 bg-white p-4 mx-auto w-full md:w-4/5 lg:w-3/4 xl:w-2/3">
@@ -103,11 +117,8 @@ const ControlPage = () => {
               onFileChange={handleFileChange}
               onSendAudio={handleSendAudio}
             />
-            
-            
-
           ) : (
-            <InicialSreen /> // Mostramos a tela inicial quando nenhum contato está selecionado
+            <InicialScreen />
           )}
         </div>
       </div>

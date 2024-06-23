@@ -1,9 +1,10 @@
-/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-no-undef */
 import { useState, useEffect } from "react";
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ChatMessages from "./ChatMessages/ChatMessages";
 import ChatInput from "./ChatInput/ChatInput";
+import InicialScreen from "../../pages/InicialSreen/InicialSreen";
 
 const Chat = ({
   selectedContact,
@@ -42,9 +43,8 @@ const Chat = ({
   };
 
   const highlightText = (text, highlight) => {
-    if (!highlight) return <>{text}</>; // Retorna o texto completo se não houver termo de pesquisa
+    if (!highlight) return <>{text}</>;
 
-    // Cria uma expressão regular global (gi) para encontrar todas as ocorrências do termo de pesquisa
     const regex = new RegExp(`(${highlight})`, "gi");
     const parts = text.split(regex);
 
@@ -66,7 +66,7 @@ const Chat = ({
   const filteredMessages = contactsMessages[selectedContact]
     ? contactsMessages[selectedContact].map((msg, index) => ({
         ...msg,
-        index, // Adicionando o índice da mensagem para referência
+        index,
       }))
     : [];
 
@@ -85,37 +85,38 @@ const Chat = ({
   }, [highlightedMessageIndex]);
 
   useEffect(() => {
-    setSearchTerm(""); // Limpar o termo de pesquisa ao mudar de contato
-    setSearchVisible(false); // Esconder a barra de pesquisa ao mudar de contato
-    setHighlightedMessageIndex(-1); // Limpar o índice da mensagem destacada ao mudar de contato
+    setSearchTerm("");
+    setSearchVisible(false);
+    setHighlightedMessageIndex(-1);
   }, [selectedContact]);
 
   return (
     <div className="flex flex-col h-full border border-gray-300 rounded-lg shadow-md">
-      <ChatHeader
-        selectedContact={selectedContact}
-        contactProfileImages={contactProfileImages}
-        toggleSearchBar={toggleSearchBar}
-        searchVisible={searchVisible}
-        searchTerm={searchTerm}
-        handleSearchChange={handleSearchChange}
-        handleSearchKeyPress={handleSearchKeyPress}
-      />
-      <div className="flex-grow overflow-hidden">
-        <ChatMessages
-          filteredMessages={filteredMessages}
-          highlightText={highlightText}
-          searchTerm={searchTerm}
-          highlightedMessageIndex={highlightedMessageIndex} // Passando o índice da mensagem destacada
-        />
-      </div>
+      {!selectedContact && <InicialScreen />}
       {selectedContact && (
-        <ChatInput
-          selectedContact={selectedContact}
-          onSendMessage={onSendMessage}
-          onFileChange={onFileChange}
-          onSendAudio={onSendAudio}
-        />
+        <>
+          <ChatHeader
+            selectedContact={selectedContact}
+            contactProfileImages={contactProfileImages}
+            toggleSearchBar={toggleSearchBar}
+            searchVisible={searchVisible}
+            searchTerm={searchTerm}
+            handleSearchChange={handleSearchChange}
+            handleSearchKeyPress={handleSearchKeyPress}
+          />
+          <ChatMessages
+            filteredMessages={filteredMessages}
+            highlightText={highlightText}
+            searchTerm={searchTerm}
+            highlightedMessageIndex={highlightedMessageIndex}
+          />
+          <ChatInput
+            selectedContact={selectedContact}
+            onSendMessage={onSendMessage}
+            onFileChange={onFileChange}
+            onSendAudio={onSendAudio}
+          />
+        </>
       )}
     </div>
   );

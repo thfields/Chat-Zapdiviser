@@ -27,21 +27,30 @@ const Contacts = ({ contacts, contactProfileImages, selectedContact, onContactCl
       </div>
       
       <div className="relative mb-4">
-        <MagnifyingGlass size={24} className="text-gray-500 absolute left-3 top-2/4 transform -translate-y-1/2" />
-        <input 
-          type="search"  
+        <MagnifyingGlass size={24} className="text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
+        <input
+          type="text"
+          placeholder="Procurar"
           value={searchTerm}
           onChange={handleSearchChange}
-          className="bg-purple-white shadow rounded border border-gray-300 focus:border-green-500 focus:outline-none p-3 pl-10 w-full" 
-          placeholder="Pesquise um contato"
+          className="pl-10 pr-4 py-2 border rounded-lg w-full"
         />
       </div>
-
-      <ul className="flex-grow overflow-y-auto">
-        {filteredContacts.map((contact, index) => (
-          <li key={index} onClick={() => onContactClick(contact)} className={`p-2 hover:bg-gray-300 rounded cursor-pointer flex items-center gap-3 border-b-2 ${selectedContact === contact ? 'border-green-500' : 'border-b-gray-300'}`}>
-            <img src={contactProfileImages[contact]} alt={`${contact}'s Profile`} className="w-10 h-10 rounded-full" />
-            <span className="truncate flex-grow">{contact}</span>
+      <ul className="flex-1 overflow-y-auto">
+        {filteredContacts.map(contact => (
+          <li
+            key={contact}
+            onClick={() => onContactClick(contact)}
+            className={`p-2 cursor-pointer hover:bg-gray-200 rounded-md ${selectedContact === contact ? 'bg-gray-200' : ''}`}
+          >
+            <div className="flex items-center">
+              <img
+                src={contactProfileImages[contact]}
+                alt={`${contact} profile`}
+                className="w-10 h-10 rounded-full mr-4"
+              />
+              <span>{contact}</span>
+            </div>
           </li>
         ))}
       </ul>
