@@ -1,5 +1,5 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-// ChatHeader.jsx
 import { useState } from 'react';
 import { List, MagnifyingGlass, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 import ModalHeader from '../Modals/ModalHeader'; // Importe o componente ModalHeader
@@ -10,17 +10,20 @@ const ChatHeader = ({
   toggleSearchBar,
   searchVisible,
   searchTerm,
+  setSearchTerm,
   handleSearchChange,
   handleSearchKeyPress,
-  setIsChatFull,
 }) => {
   const [searchActive, setSearchActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+  const [searching, setSearching] = useState(false); // Estado para controlar se estamos realizando uma pesquisa
 
   const handleToggleSearch = () => {
     toggleSearchBar();
     setSearchActive(!searchActive);
+    setSearchTerm(""); // Limpa o termo de pesquisa ao alternar a barra de pesquisa
+    setSearching(false); // Ao alternar, garantimos que não estamos mais em modo de pesquisa
   };
 
   const handleDotsClick = (event) => {
@@ -44,6 +47,12 @@ const ChatHeader = ({
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+      setSearching(true); // Ativa o modo de pesquisa quando o usuário pressiona Enter
+    }
   };
 
   if (!selectedContact || !contactProfileImages[selectedContact]) {
@@ -75,7 +84,10 @@ const ChatHeader = ({
               placeholder="Pesquisar no chat..."
               value={searchTerm}
               onChange={handleSearchChange}
-              onKeyPress={handleSearchKeyPress}
+              onKeyPress={(e) => {
+                handleSearchKeyPress(e);
+                handleSearch(e); // Chama handleSearch no evento de pressionar Enter
+              }}
               className="p-2 rounded bg-white shadow focus:outline-none text-sm font-semibold text-gray-900 placeholder-gray-500"
             />
           </div>
@@ -96,6 +108,9 @@ const ChatHeader = ({
           />
         </div>
       </div>
+      {searching && (
+        <div className="fixed inset-0 bg-gray-100 bg-opacity-50 z-10"></div>
+      )}
     </div>
   );
 };

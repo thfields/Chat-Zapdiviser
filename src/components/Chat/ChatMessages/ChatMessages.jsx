@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
+import React, { useRef, useEffect } from "react";
 import { DownloadSimple } from "@phosphor-icons/react";
-import { useRef, useEffect } from "react";
 
 const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlightedMessageIndex }) => {
   const messagesEndRef = useRef(null);
@@ -13,9 +13,22 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToHighlightedMessage = (index) => {
+    const highlightedMessage = document.querySelector(`.message[data-index="${index}"]`);
+    if (highlightedMessage) {
+      highlightedMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  useEffect(() => {
+    if (highlightedMessageIndex !== -1) {
+      scrollToHighlightedMessage(highlightedMessageIndex);
+    }
+  }, [highlightedMessageIndex]);
+
   return (
-    <div className="flex-grow p-4 overflow-y-auto">
-      <div className="max-h-[calc(100vh - 16rem)] overflow-auto">
+    <div className="flex-grow p-4 overflow-y-auto max-h-[calc(100vh - 10rem)]">
+      <div className="overflow-auto">
         {filteredMessages.map((message, index) => (
           <div
             key={index}

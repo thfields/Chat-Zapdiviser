@@ -22,7 +22,7 @@ const ModalHeader = ({ isOpen, onClose, onArchive, onDelete, onMute }) => {
               onArchive();
               onClose();
             }}
-            className="block w-full text-left py-2 px-4 hover:bg-gray-100 flex items-center"
+            className="w-full text-left py-2 px-4 hover:bg-gray-100 flex items-center"
           >
             <Folders size={17} className="mr-2"/> Arquivar
           </button>
@@ -33,7 +33,7 @@ const ModalHeader = ({ isOpen, onClose, onArchive, onDelete, onMute }) => {
               onDelete();
               onClose();
             }}
-            className="block w-full text-left py-2 px-4 hover:bg-gray-100 flex items-center"
+            className="w-full text-left py-2 px-4 hover:bg-gray-100 flex items-center"
           >
             <Trash size={17} className="mr-2"/> Deletar
           </button>
@@ -44,7 +44,7 @@ const ModalHeader = ({ isOpen, onClose, onArchive, onDelete, onMute }) => {
               onMute();
               onClose();
             }}
-            className="block w-full text-left py-2 px-4 hover:bg-gray-100 flex items-center"
+            className="w-full text-left py-2 px-4 hover:bg-gray-100 flex items-center"
           >
             <SpeakerSimpleSlash size={17} className="mr-2"/> Silenciar
           </button>

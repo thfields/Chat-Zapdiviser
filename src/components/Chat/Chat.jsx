@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-no-undef */
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ChatMessages from "./ChatMessages/ChatMessages";
 import ChatInput from "./ChatInput/ChatInput";
@@ -101,6 +100,7 @@ const Chat = ({
             toggleSearchBar={toggleSearchBar}
             searchVisible={searchVisible}
             searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm} // Passando setSearchTerm para o ChatHeader
             handleSearchChange={handleSearchChange}
             handleSearchKeyPress={handleSearchKeyPress}
           />
