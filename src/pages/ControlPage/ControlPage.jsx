@@ -4,15 +4,23 @@ import ModalProfile from '../../components/Chat/Modals/ModalProfile';
 import Chat from "../../components/Chat/Chat";
 import Contacts from "../../components/Contacts/Contacts";
 import InicialScreen from "../InicialSreen/InicialSreen";
+import Thiago from "../../assets/thiago.png";
+import Vitor from "../../assets/vitor.png";
+import Rodrigo from "../../assets/rodrigo.png";
+import Bruno from "../../assets/bruno.png";
+import NoProfile from "../../assets/sem-foto.png";
 
 const contactProfileImages = {
-  Vitor: "/src/assets/vitor.PNG",
-  "(84) 99617-1333": "/src/assets/sem-foto.png",
-  Thiago: "/src/assets/thiago.PNG",
+  Vitor: Vitor,
+  Rickson: NoProfile,
+  Thiago: Thiago,
+  Bruno: Bruno,
+  Rodrigo: Rodrigo,
+  Abner : NoProfile,
 };
 
 const ControlPage = () => {
-  const initialContacts = ["Vitor", "(84) 99617-1333", "Thiago"];
+  const initialContacts = ["Vitor", "Rickson", "Thiago", "Bruno" , "Rodrigo", "Abner"];
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactsMessages, setContactsMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
