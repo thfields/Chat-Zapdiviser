@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { User, List } from "@phosphor-icons/react";
-import ModalProfile from '@/components/Chat/Modals/ModalProfile';
-import Chat from "@/components/Chat/Chat";
-import Contacts from "@/components/Contacts/Contacts";
-import InicialScreen from "@/pages/InicialSreen/InicialSreen";
-import Thiago from '@/assets/thiago.png';
-import Vitor from '@/assets/vitor.png';
-import Rodrigo from '@/assets/rodrigo.png';
-import Bruno from '@/assets/bruno.png';
-import NoProfile from '@/assets/sem-foto.png';
+import ModalProfile from "../../components/Chat/Modals/ModalProfile";
+import Chat from "../../components/Chat/Chat";
+import Contacts from "../../components/Contacts/Contacts";
+import InicialScreen from "../InicialSreen/InicialSreen";
+import Thiago from "../../assets/thiago.png";
+import Vitor from "../../assets/vitor.png";
+import Rodrigo from "../../assets/rodrigo.png";
+import Bruno from "../../assets/bruno.png";
+import NoProfile from "../../assets/sem-foto.png";
 
 const contactProfileImages = {
   Vitor: Vitor,
