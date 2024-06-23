@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { User, List } from "@phosphor-icons/react";
 import ModalProfile from '../../components/Chat/Modals/ModalProfile';
 import Chat from "../../components/Chat/Chat";
-import Contacts from "../../components/Contatcs/Contatcs";
+import Contacts from "../../components/Contacts/Contacts";
 import InicialScreen from "../InicialSreen/InicialSreen";
 
 const contactProfileImages = {
