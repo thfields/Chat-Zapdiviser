@@ -27,7 +27,7 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
   }, [highlightedMessageIndex]);
 
   return (
-    <div className="flex-grow p-4 overflow-y-auto max-h-[calc(100vh - 10rem)]">
+    <div className="bg-gray-200 flex-grow p-4 overflow-y-auto max-h-[calc(100vh - 10rem)]">
       <div className="overflow-auto">
         {filteredMessages.map((message, index) => (
           <div
@@ -38,7 +38,7 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
           >
             <div
               className={`p-2 my-2 rounded ${
-                index === highlightedMessageIndex ? "bg-yellow-200" : "bg-gray-200"
+                index === highlightedMessageIndex ? "bg-yellow-200" : "bg-green-50"
               }`}
             >
               <p className="whitespace-pre-wrap">

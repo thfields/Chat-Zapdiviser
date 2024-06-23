@@ -60,7 +60,7 @@ const ChatHeader = ({
   }
 
   return (
-    <div className="p-2 bg-gray-100 flex items-center justify-between relative">
+    <div className="p-2 bg-white flex items-center justify-between relative">
       <div className="flex items-center gap-2">
         <button onClick={() => setIsChatFull(prev => !prev)}>
           <List size={28} className="text-black" />
