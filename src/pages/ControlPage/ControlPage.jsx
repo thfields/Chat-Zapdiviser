@@ -1,23 +1,21 @@
+/* eslint-disable no-undef */
 import { useState } from 'react';
 import { User, List } from "@phosphor-icons/react";
 import ModalProfile from '../../components/Chat/Modals/ModalProfile';
 import Chat from "../../components/Chat/Chat";
 import Contacts from "../../components/Contacts/Contacts";
 import InicialScreen from "../InicialSreen/InicialSreen";
-import Thiago from "../../../src/assets/thiago.png";
-import Vitor from "../../../src/assets/vitor.png";
-import Rodrigo from "../../../src/assets/rodrigo.png";
-import Bruno from "../../../src/assets/bruno.png";
-import NoProfile from "../../../src/assets/sem-foto.png";
+
 
 const contactProfileImages = {
-  Vitor: Vitor,
-  Rickson: NoProfile,
-  Thiago: Thiago,
-  Bruno: Bruno,
-  Rodrigo: Rodrigo,
-  Abner : NoProfile,
+  Vitor: require("../../assets/vitor.png").default,
+  Rickson: require("../../assets/sem-foto.png").default,
+  Thiago: require("../../assets/thiago.png").default,
+  Bruno: require("../../assets/bruno.png").default,
+  Rodrigo: require("../../assets/rodrigo.png").default,
+  Abner: require("../../assets/sem-foto.png").default,
 };
+
 
 const ControlPage = () => {
   const initialContacts = ["Vitor", "Rickson", "Thiago", "Bruno" , "Rodrigo", "Abner"];
