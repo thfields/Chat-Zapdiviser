@@ -27,7 +27,7 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
   }, [highlightedMessageIndex]);
 
   return (
-    <div className="bg-gray-200 flex-grow p-4 overflow-y-auto max-h-[calc(100vh - 10rem)]">
+    <div className="bg-gray-200 flex-grow p-4 overflow-y-auto h-32">
       <div className="overflow-auto">
         {filteredMessages.map((message, index) => (
           <div

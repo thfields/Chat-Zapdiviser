@@ -1,5 +1,5 @@
-/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import { useState } from 'react';
 import { List, MagnifyingGlass, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 import ModalHeader from '../Modals/ModalHeader'; // Importe o componente ModalHeader
@@ -49,12 +49,7 @@ const ChatHeader = ({
     setIsModalOpen(false);
   };
 
-  const handleSearch = (event) => {
-    if (event.key === 'Enter') {
-      setSearching(true); // Ativa o modo de pesquisa quando o usuário pressiona Enter
-    }
-  };
-
+  // Remova o handleSearch do onKeyPress e apenas mantenha handleSearchKeyPress
   if (!selectedContact || !contactProfileImages[selectedContact]) {
     return null; // Não renderiza o componente se não houver contato selecionado ou imagem de perfil correspondente
   }
@@ -85,8 +80,7 @@ const ChatHeader = ({
               value={searchTerm}
               onChange={handleSearchChange}
               onKeyPress={(e) => {
-                handleSearchKeyPress(e);
-                handleSearch(e); // Chama handleSearch no evento de pressionar Enter
+                handleSearchKeyPress(e); // Chama handleSearchKeyPress no evento de pressionar Enter
               }}
               className="p-2 rounded bg-white shadow focus:outline-none text-sm font-semibold text-gray-900 placeholder-gray-500"
             />
