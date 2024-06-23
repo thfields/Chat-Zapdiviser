@@ -50,7 +50,7 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
 
     return (
       <div className="chat-input p-4 flex items-center bg-white border-t border-gray-300">
-      <button  className="emoji-button mr-2" onClick={toggleEmojiPicker}><Smiley size={32} /></button>
+      <button  className="emoji-button mr-2  hover:text-green-500" onClick={toggleEmojiPicker}><Smiley size={32} /></button>
       <EmojiPicker visible={showEmojiPicker} position={emojiPickerPosition} onClose={() => setShowEmojiPicker(false)} onEmojiClick={onEmojiClick} />
       <input
         type="file"
@@ -58,7 +58,7 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
         className="hidden"
         onChange={(e) => onFileChange(e, selectedContact)}
       />
-      <button className="mr-2" onClick={() => document.getElementById('file-input').click()}>
+      <button className="mr-2  hover:text-green-500" onClick={() => document.getElementById('file-input').click()}>
         <Paperclip size={32} />
       </button>
       <input

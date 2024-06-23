@@ -41,7 +41,7 @@ const Contacts = ({ contacts, contactProfileImages, selectedContact, onContactCl
           <li
             key={contact}
             onClick={() => onContactClick(contact)}
-            className={`p-2 cursor-pointer hover:bg-gray-200 rounded-md ${selectedContact === contact ? 'bg-gray-200' : ''}`}
+            className={`p-2 cursor-pointer hover:bg-gray-200 border-b-2 hover:border-b-green-500 rounded-md ${selectedContact === contact ? 'bg-gray-200' : ''}`}
           >
             <div className="flex items-center">
               <img
