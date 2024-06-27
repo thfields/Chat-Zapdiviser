@@ -5,11 +5,10 @@ import Chat from "../../components/Chat/Chat";
 import Contacts from "../../components/Contacts/Contacts";
 import InicialScreen from "../InicialSreen/InicialSreen";
 
-
 const contactProfileImages = {
   Vitor: "/src/assets/vitor.png",
   Rickson: "/src/assets/sem-foto.png",
-  Thiago: "/src/assets/thiago.png",	
+  Thiago: "/src/assets/thiago.png",    
   Bruno: "/src/assets/bruno.png",
   Rodrigo: "/src/assets/rodrigo.png",
   Abner: "/src/assets/sem-foto.png",
@@ -21,6 +20,7 @@ const ControlPage = () => {
   const [contactsMessages, setContactsMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalProfileOpen, setIsModalProfileOpen] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true); // Novo estado
 
   const toggleModalProfile = () => {
     setIsModalProfileOpen(!isModalProfileOpen);
@@ -80,6 +80,10 @@ const ControlPage = () => {
     });
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
   return (
     <div className="flex flex-col h-screen">
       <div className="flex justify-between w-full px-4 py-3 md:px-20 md:py-6">
@@ -101,17 +105,19 @@ const ControlPage = () => {
       </div>
 
       <div className="flex flex-col md:flex-row flex-1 bg-white p-4 mx-auto w-full md:w-4/5 lg:w-3/4 xl:w-2/3">
-        <div className="w-full md:w-1/3 mb-4 md:mb-0">
-          <Contacts
-            contacts={initialContacts}
-            contactProfileImages={contactProfileImages}
-            selectedContact={selectedContact}
-            onContactClick={handleContactClick}
-            searchTerm={searchTerm}
-            onSearchChange={handleSearch}
-          />
-        </div>
-        <div className="flex-1">
+        {isSidebarVisible && (
+          <div className="w-full md:w-1/3 mb-4 md:mb-0">
+            <Contacts
+              contacts={initialContacts}
+              contactProfileImages={contactProfileImages}
+              selectedContact={selectedContact}
+              onContactClick={handleContactClick}
+              searchTerm={searchTerm}
+              onSearchChange={handleSearch}
+            />
+          </div>
+        )}
+        <div className={`flex-1 ${isSidebarVisible ? "md:w-2/3" : "w-full"}`}>
           {selectedContact ? (
             <Chat
               selectedContact={selectedContact}
@@ -120,6 +126,7 @@ const ControlPage = () => {
               onSendMessage={handleSendMessage}
               onFileChange={handleFileChange}
               onSendAudio={handleSendAudio}
+              toggleSidebar={toggleSidebar} // Passando a função de controle do sidebar
             />
           ) : (
             <InicialScreen />

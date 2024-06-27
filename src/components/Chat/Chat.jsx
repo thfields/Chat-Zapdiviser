@@ -12,6 +12,7 @@ const Chat = ({
   onSendMessage,
   onFileChange,
   onSendAudio,
+  toggleSidebar,
 }) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -103,6 +104,7 @@ const Chat = ({
             setSearchTerm={setSearchTerm} // Passando setSearchTerm para o ChatHeader
             handleSearchChange={handleSearchChange}
             handleSearchKeyPress={handleSearchKeyPress}
+            toggleSidebar={toggleSidebar} // Passando a função de controle do sidebar
           />
           <ChatMessages
             filteredMessages={filteredMessages}

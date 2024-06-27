@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-undef */
 import { useState } from 'react';
 import { List, MagnifyingGlass, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 import ModalHeader from '../Modals/ModalHeader'; // Importe o componente ModalHeader
@@ -13,34 +12,31 @@ const ChatHeader = ({
   setSearchTerm,
   handleSearchChange,
   handleSearchKeyPress,
+  toggleSidebar,
 }) => {
   const [searchActive, setSearchActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
-  const [searching, setSearching] = useState(false); // Estado para controlar se estamos realizando uma pesquisa
 
   const handleToggleSearch = () => {
     toggleSearchBar();
     setSearchActive(!searchActive);
     setSearchTerm(""); // Limpa o termo de pesquisa ao alternar a barra de pesquisa
-    setSearching(false); // Ao alternar, garantimos que não estamos mais em modo de pesquisa
   };
 
   const handleDotsClick = (event) => {
-    // Se o modal já estiver aberto, simplesmente o fecha e interrompe a execução da função
     if (isModalOpen) {
       setIsModalOpen(false);
       return;
     }
-  
+
     const icon = event.currentTarget;
     const iconRect = icon.getBoundingClientRect();
-    const modalWidth = 180; // Largura do modal
-  
-    // Calcula a posição do modal para que fique ao lado direito e abaixo do ícone
+    const modalWidth = 180;
+
     const modalTop = iconRect.bottom + window.scrollY + 10;
     const modalLeft = iconRect.left + window.scrollX - modalWidth + iconRect.width;
-  
+
     setModalPosition({ top: modalTop, left: modalLeft });
     setIsModalOpen(true);
   };
@@ -49,15 +45,14 @@ const ChatHeader = ({
     setIsModalOpen(false);
   };
 
-  // Remova o handleSearch do onKeyPress e apenas mantenha handleSearchKeyPress
   if (!selectedContact || !contactProfileImages[selectedContact]) {
-    return null; // Não renderiza o componente se não houver contato selecionado ou imagem de perfil correspondente
+    return null; 
   }
 
   return (
     <div className="p-2 bg-white flex items-center justify-between relative">
       <div className="flex items-center gap-2">
-        <button onClick={() => setIsChatFull(prev => !prev)}>
+        <button onClick={toggleSidebar}>
           <List size={28} className="text-black" />
         </button>
         <img
@@ -79,9 +74,7 @@ const ChatHeader = ({
               placeholder="Pesquisar no chat..."
               value={searchTerm}
               onChange={handleSearchChange}
-              onKeyPress={(e) => {
-                handleSearchKeyPress(e); // Chama handleSearchKeyPress no evento de pressionar Enter
-              }}
+              onKeyPress={handleSearchKeyPress}
               className="p-2 rounded bg-white shadow focus:outline-none text-sm font-semibold text-gray-900 placeholder-gray-500"
             />
           </div>
@@ -102,9 +95,6 @@ const ChatHeader = ({
           />
         </div>
       </div>
-      {searching && (
-        <div className="fixed inset-0 bg-gray-100 bg-opacity-50 z-10"></div>
-      )}
     </div>
   );
 };
