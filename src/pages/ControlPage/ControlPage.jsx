@@ -26,8 +26,13 @@ const ControlPage = () => {
     setIsModalProfileOpen(!isModalProfileOpen);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
+    setIsSidebarVisible(false);
     if (!contactsMessages[contact]) {
       setContactsMessages({
         ...contactsMessages,
@@ -80,14 +85,12 @@ const ControlPage = () => {
     });
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarVisible(!isSidebarVisible);
-  };
+
 
   return (
     <div className="flex flex-col h-screen">
       <div className="flex justify-between w-full px-4 py-3 md:px-20 md:py-6">
-        <button className="my-3">
+        <button className="my-3" onClick={toggleSidebar}>
           <List size={32} />
         </button>
         <button className="my-3" onClick={toggleModalProfile}>
@@ -106,7 +109,7 @@ const ControlPage = () => {
 
       <div className="flex flex-col md:flex-row flex-1 bg-white p-4 mx-auto w-full md:w-4/5 lg:w-3/4 xl:w-2/3">
         {isSidebarVisible && (
-          <div className="w-full md:w-1/3 mb-4 md:mb-0">
+          <div className={`fixed inset-0 z-10 md:relative md:z-auto md:w-1/3 ${isSidebarVisible ? 'block' : 'hidden md:block'}`}>
             <Contacts
               contacts={initialContacts}
               contactProfileImages={contactProfileImages}
