@@ -63,23 +63,21 @@ const ChatHeader = ({
         <h2 className="text-sm font-bold text-black">{selectedContact}</h2>
       </div>
 
-      <div className="relative">
-        <button onClick={handleToggleSearch} className="mr-8">
+      <div className="relative flex items-center">
+        {searchVisible && searchActive ? (
+          <input
+            type="text"
+            placeholder="Pesquisar no chat..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onKeyPress={handleSearchKeyPress}
+            className="p-2 rounded bg-white shadow focus:outline-none text-sm font-semibold text-gray-900 placeholder-gray-500 mr-2"
+          />
+        ) : null}
+        <button onClick={handleToggleSearch} className="mr-2">
           <MagnifyingGlass size={24} className="text-gray-500" />
         </button>
-        {searchVisible && searchActive ? (
-          <div className="absolute right-0 top-full mt-1">
-            <input
-              type="text"
-              placeholder="Pesquisar no chat..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-              onKeyPress={handleSearchKeyPress}
-              className="p-2 rounded bg-white shadow focus:outline-none text-sm font-semibold text-gray-900 placeholder-gray-500"
-            />
-          </div>
-        ) : null}
-        <div className="absolute right-0 top-0">
+        <div className="relative">
           <DotsThreeOutlineVertical
             size={22}
             className="cursor-pointer text-gray-500"

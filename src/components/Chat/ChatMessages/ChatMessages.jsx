@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useRef, useEffect } from "react";
-import { DownloadSimple, Checks  } from "@phosphor-icons/react";
+import { useState, useRef, useEffect } from "react";
+import { DownloadSimple, Checks, CaretDown } from "@phosphor-icons/react";
+import ModalMessage from "../Modals/ModalMessage";
 
 const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlightedMessageIndex }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentMessage, setCurrentMessage] = useState(null);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -26,6 +30,47 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
     }
   }, [highlightedMessageIndex]);
 
+  const openModal = (message, event) => {
+    const rect = event.target.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    const modalWidth = 150; // Largura aproximada do modal
+
+    let left = rect.left + window.scrollX;
+
+    if (windowWidth - rect.right < modalWidth) {
+      left = rect.left + window.scrollX - modalWidth;
+    }
+
+    setModalPosition({ top: rect.top + window.scrollY, left });
+    setCurrentMessage(message);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentMessage(null);
+  };
+
+  const handleReply = () => {
+    console.log("Reply to:", currentMessage);
+    closeModal();
+  };
+
+  const handleForward = () => {
+    console.log("Forward:", currentMessage);
+    closeModal();
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(currentMessage.content);
+    closeModal();
+  };
+
+  const handleDelete = () => {
+    console.log("Delete:", currentMessage);
+    closeModal();
+  };
+
   return (
     <div className="bg-gray-200 flex-grow p-4 overflow-y-auto h-32">
       <div className="overflow-auto">
@@ -36,8 +81,13 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
             data-index={index}
           >
             <div
-              className={`p-2 my-2 rounded ${index === highlightedMessageIndex ? "bg-yellow-200" : "bg-green-50"}`}
+              className={`p-2 my-2 rounded relative ${index === highlightedMessageIndex ? "bg-yellow-200" : "bg-green-50"}`}
             >
+              <div className="absolute top-0 right-0">
+                <button onClick={(event) => openModal(message, event)}>
+                  <CaretDown size={16} />
+                </button>
+              </div>
               <p className="whitespace-pre-wrap">
                 {highlightText(message.content, searchTerm)}
               </p>
@@ -59,6 +109,16 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
         ))}
         <div ref={messagesEndRef} />
       </div>
+      {isModalOpen && (
+        <ModalMessage
+          onClose={closeModal}
+          onReply={handleReply}
+          onForward={handleForward}
+          onCopy={handleCopy}
+          onDelete={handleDelete}
+          position={modalPosition}
+        />
+      )}
     </div>
   );
 };
