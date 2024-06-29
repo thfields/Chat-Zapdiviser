@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useRef, useEffect } from "react";
-import { DownloadSimple } from "@phosphor-icons/react";
+import { DownloadSimple, Checks  } from "@phosphor-icons/react";
 
 const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlightedMessageIndex }) => {
   const messagesEndRef = useRef(null);
@@ -32,14 +32,11 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
         {filteredMessages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${
-              message.sender === "Me" ? "justify-end" : "justify-start"
-            }`}
+            className={`flex ${message.sender === "Me" ? "justify-end" : "justify-start"}`}
+            data-index={index}
           >
             <div
-              className={`p-2 my-2 rounded ${
-                index === highlightedMessageIndex ? "bg-yellow-200" : "bg-green-50"
-              }`}
+              className={`p-2 my-2 rounded ${index === highlightedMessageIndex ? "bg-yellow-200" : "bg-green-50"}`}
             >
               <p className="whitespace-pre-wrap">
                 {highlightText(message.content, searchTerm)}
@@ -53,6 +50,10 @@ const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlighted
                   <DownloadSimple size={12} />
                 </a>
               )}
+              <div className="text-xs text-gray-500 mt-1 flex justify-between">
+                <span>{new Date().toLocaleString()}</span>
+                <Checks size={15} />
+              </div>
             </div>
           </div>
         ))}
