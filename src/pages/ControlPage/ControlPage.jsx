@@ -20,7 +20,7 @@ const ControlPage = () => {
   const [contactsMessages, setContactsMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalProfileOpen, setIsModalProfileOpen] = useState(false);
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true); // Novo estado
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
   const toggleModalProfile = () => {
     setIsModalProfileOpen(!isModalProfileOpen);
@@ -32,12 +32,14 @@ const ControlPage = () => {
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
-    setIsSidebarVisible(true);
     if (!contactsMessages[contact]) {
       setContactsMessages({
         ...contactsMessages,
         [contact]: [],
       });
+    }
+    if (window.innerWidth < 768) {
+      setIsSidebarVisible(false); // Ocultar sidebar no modo mobile ao selecionar um contato
     }
   };
 
@@ -85,8 +87,6 @@ const ControlPage = () => {
     });
   };
 
-
-
   return (
     <div className="flex flex-col h-screen">
       <div className="flex justify-between w-full px-4 py-3 md:px-20 md:py-6">
@@ -120,7 +120,7 @@ const ControlPage = () => {
             />
           </div>
         )}
-        <div className={`flex-1 ${isSidebarVisible ? "md:w-2/3" : "w-full"}`}>
+        <div className={`flex-1 ${isSidebarVisible ? "hidden md:block" : "block"}`}>
           {selectedContact ? (
             <Chat
               selectedContact={selectedContact}
