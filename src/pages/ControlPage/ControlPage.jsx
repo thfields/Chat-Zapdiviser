@@ -32,7 +32,7 @@ const ControlPage = () => {
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
-    setIsSidebarVisible(false);
+    setIsSidebarVisible(true);
     if (!contactsMessages[contact]) {
       setContactsMessages({
         ...contactsMessages,
