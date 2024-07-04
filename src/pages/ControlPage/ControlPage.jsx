@@ -9,7 +9,7 @@ const contactProfileImages = {
   Vitor: "/src/assets/vitor.png",
   Rickson: "/src/assets/sem-foto.png",
   Thiago: "/src/assets/thiago.png",    
-  Marcos: "/src/assets/sem-foto.png",
+  Marcos: "/src/assets/marcos.png",
   Rodrigo: "/src/assets/rodrigo.png",
   Abner: "/src/assets/sem-foto.png",
 };
