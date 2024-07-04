@@ -43,7 +43,8 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
     }
   };
 
-  const onEmojiClick = (event, emojiObject) => {
+  const onEmojiClick = (emojiObject) => {
+    console.log(emojiObject);
     setMessageInput(prevInput => prevInput + emojiObject.emoji);
   };
 

@@ -6,9 +6,7 @@ const EmojiPicker = ({ visible, onClose, onEmojiClick }) => {
 
   // Calcula a posição correta para centralizar horizontalmente o seletor de emoji
   const pickerStyle = {
-      top: '25%',  // Posiciona 10px abaixo do botão
-      left: '10%',               // Centraliza horizontalmente
-      transform: 'translateX(-50%)',  // Centraliza horizontalmente
+      bottom: '8%',
       maxWidth: '40px',         // Define uma largura máxima para o modal
       boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',  // Sombra
       borderRadius: '8px',       // Bordas arredondadas

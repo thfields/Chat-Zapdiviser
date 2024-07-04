@@ -9,13 +9,13 @@ const contactProfileImages = {
   Vitor: "/src/assets/vitor.png",
   Rickson: "/src/assets/sem-foto.png",
   Thiago: "/src/assets/thiago.png",    
-  Bruno: "/src/assets/bruno.png",
+  Marcos: "/src/assets/sem-foto.png",
   Rodrigo: "/src/assets/rodrigo.png",
   Abner: "/src/assets/sem-foto.png",
 };
 
 const ControlPage = () => {
-  const initialContacts = ["Vitor", "Rickson", "Thiago", "Bruno", "Rodrigo", "Abner"];
+  const initialContacts = ["Vitor", "Rickson", "Thiago", "Marcos", "Rodrigo", "Abner"];
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactsMessages, setContactsMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
