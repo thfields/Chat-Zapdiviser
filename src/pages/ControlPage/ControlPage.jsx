@@ -16,10 +16,6 @@ const ControlPage = () => {
     isModalProfileOpen, 
     isSidebarVisible,
     selectedContact,
-    contactsMessages,
-    handleSendMessage,
-    handleFileChange,
-    handleSendAudio,
   
   } = useContext(ControlContext);
 
@@ -45,14 +41,7 @@ const ControlPage = () => {
         )}
         <div className={`flex-1 ${isSidebarVisible ? "hidden md:block" : "block"}`}>
           {selectedContact ? (
-            <Chat
-              selectedContact={selectedContact}
-              contactsMessages={contactsMessages}
-              onSendMessage={handleSendMessage}
-              onFileChange={handleFileChange}
-              onSendAudio={handleSendAudio}
-              toggleSidebar={toggleSidebar} // Passando a função de controle do sidebar
-            />
+            <Chat/>
           ) : (
             <InicialScreen />
           )}

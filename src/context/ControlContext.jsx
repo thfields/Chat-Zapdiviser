@@ -39,28 +39,6 @@ export const ControlContextProvider = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
-     
-  const highlightText = (text, highlight) => {
-    if (!highlight) return <>{text}</>;
-
-    const regex = new RegExp(`(${highlight})`, "gi");
-    const parts = text.split(regex);
-
-    return (
-      <>
-        {parts.map((part, index) =>
-          regex.test(part) ? (
-            <mark key={index} className="bg-yellow-300">
-              {part}
-            </mark>
-          ) : (
-            <React.Fragment key={index}>{part}</React.Fragment>
-          )
-        )}
-      </>
-    );
-  };
-    
 
     const filteredMessages = contactsMessages[selectedContact]
     ? contactsMessages[selectedContact].map((msg, index) => ({
@@ -206,7 +184,6 @@ export const ControlContextProvider = ({ children }) => {
                 setIsModalOpen,
                 modalPosition,
                 setModalPosition,
-                highlightText,
             
 
             }

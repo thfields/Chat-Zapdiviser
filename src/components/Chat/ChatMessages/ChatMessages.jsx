@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { DownloadSimple, Checks, CaretDown } from "@phosphor-icons/react";
 import ModalMessage from "../Modals/ModalMessage";
+import { ControlContext } from "../../../context/ControlContext";
 
-const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlightedMessageIndex }) => {
+const ChatMessages = ({ filteredMessages, highlightText, highlightedMessageIndex }) => {
+
+  const { searchTerm } = useContext(ControlContext);
+
+
+
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(null);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });

@@ -4,18 +4,19 @@ import { List, MagnifyingGlass, DotsThreeOutlineVertical } from "@phosphor-icons
 import ModalHeader from '../Modals/ModalHeader'; // Importe o componente ModalHeader
 import { ControlContext } from '../../../context/ControlContext';
 
-const ChatHeader = () => {
+const ChatHeader = ({
+  toggleSearchBar,
+  searchVisible,
+  searchTerm,
+  setSearchTerm,
+  handleSearchChange,
+  handleSearchKeyPress
+}) => {
   
   
   const { 
     profileImages, 
     selectedContact,
-    toggleSearchBar,
-    searchVisible,
-    searchTerm,
-    setSearchTerm,
-    handleSearchChange,
-    handleSearchKeyPress,
     toggleSidebar,
     searchActive,
     setSearchActive,

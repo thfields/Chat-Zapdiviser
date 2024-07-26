@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ChatMessages from "./ChatMessages/ChatMessages";
 import ChatInput from "./ChatInput/ChatInput";
 import InicialScreen from "../../pages/InicialSreen/InicialSreen";
+import { ControlContext } from '../../context/ControlContext';
+
+const Chat = () => {
+
+  const { 
+    selectedContact,
+    contactsMessages,
+  } = useContext(ControlContext);
 
 
-const Chat = ({
-  selectedContact,
-  contactProfileImages,
-  contactsMessages,
-  onSendMessage,
-  onFileChange,
-  onSendAudio,
-  toggleSidebar,
-}) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [highlightedMessageIndex, setHighlightedMessageIndex] = useState(-1);
@@ -97,15 +96,14 @@ const Chat = ({
       {selectedContact && (
         <>
           <ChatHeader
-            selectedContact={selectedContact}
-            contactProfileImages={contactProfileImages}
+            
             toggleSearchBar={toggleSearchBar}
             searchVisible={searchVisible}
             searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm} // Passando setSearchTerm para o ChatHeader
+            setSearchTerm={setSearchTerm}
             handleSearchChange={handleSearchChange}
             handleSearchKeyPress={handleSearchKeyPress}
-            toggleSidebar={toggleSidebar} // Passando a função de controle do sidebar
+          
           />
           <ChatMessages
             filteredMessages={filteredMessages}
@@ -113,12 +111,7 @@ const Chat = ({
             searchTerm={searchTerm}
             highlightedMessageIndex={highlightedMessageIndex}
           />
-          <ChatInput
-            selectedContact={selectedContact}
-            onSendMessage={onSendMessage}
-            onFileChange={onFileChange}
-            onSendAudio={onSendAudio}
-          />
+          <ChatInput/>
         </>
       )}
     </div>
