@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DownloadSimple, Checks, CaretDown } from "@phosphor-icons/react";
 import ModalMessage from "../Modals/ModalMessage";
-import { ControlContext } from "../../../context/ControlContext";
 
-const ChatMessages = ({ filteredMessages, highlightText, highlightedMessageIndex }) => {
 
-  const { searchTerm } = useContext(ControlContext);
+const ChatMessages = ({ filteredMessages, highlightText, searchTerm, highlightedMessageIndex }) => {
+
 
 
 

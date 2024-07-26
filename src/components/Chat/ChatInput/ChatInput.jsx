@@ -77,7 +77,11 @@ const ChatInput = () => {
         onKeyPress={handleKeyPress}
       />
       <AudioRecorder/>
-      <EmojiPicker visible={showEmojiPicker} position={emojiPickerPosition} onClose={() => setShowEmojiPicker(false)} onEmojiClick={onEmojiClick} />
+      <EmojiPicker 
+        visible={showEmojiPicker} 
+        position={emojiPickerPosition} 
+        onClose={() => setShowEmojiPicker(false)} 
+        onEmojiClick={onEmojiClick} />
     </div>
   );
 };
