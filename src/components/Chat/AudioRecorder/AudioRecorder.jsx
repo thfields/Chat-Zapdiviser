@@ -1,8 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { Microphone, Stop, PaperPlaneTilt } from "@phosphor-icons/react";
+import { ControlContext } from '../../../context/ControlContext';
 
-const AudioRecorder = ({ onSendAudio }) => {
+const AudioRecorder = () => {
+
+  const {handleSendAudio} = useContext(ControlContext);
+
+
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState(null);
   const mediaRecorderRef = useRef(null);
@@ -42,7 +47,7 @@ const AudioRecorder = ({ onSendAudio }) => {
 
   const sendAudio = () => {
     if (audioBlob) {
-      onSendAudio(audioBlob);
+      handleSendAudio(audioBlob);
       setAudioBlob(null); // Limpar o estado de audioBlob após o envio
     }
   };

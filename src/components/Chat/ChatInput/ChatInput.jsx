@@ -1,10 +1,20 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { Paperclip, Smiley } from "@phosphor-icons/react";
 import EmojiPicker from "../EmojiPicker/EmojiPicker";
 import AudioRecorder from "../AudioRecorder/AudioRecorder";
+import { ControlContext } from '../../../context/ControlContext';
 
-const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }) => {
+const ChatInput = () => {
+  
+  const {
+    selectedContact,
+    handleSendMessage,
+    handleFileChange,
+  } = useContext(ControlContext);
+
+
+  
   const [messageInput, setMessageInput] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiPickerPosition, setEmojiPickerPosition] = useState({ top: 0, left: 0 });
@@ -14,18 +24,18 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
     setMessageInput(event.target.value);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessages = () => {
     if (messageInput.trim() === '' || !selectedContact) {
       return;
     }
 
-    onSendMessage(selectedContact, messageInput.trim());
+    handleSendMessage(selectedContact, messageInput.trim());
     setMessageInput('');
   };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleSendMessage();
+      handleSendMessages();
     }
   };
 
@@ -56,7 +66,7 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
         type="file"
         id="file-input"
         className="hidden"
-        onChange={(e) => onFileChange(e, selectedContact)}
+        onChange={(e) => handleFileChange(e, selectedContact)}
       />
       <input
         type="text"
@@ -66,8 +76,12 @@ const ChatInput = ({ selectedContact, onSendMessage, onFileChange, onSendAudio }
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
-      <AudioRecorder onSendAudio={onSendAudio} />
-      <EmojiPicker visible={showEmojiPicker} position={emojiPickerPosition} onClose={() => setShowEmojiPicker(false)} onEmojiClick={onEmojiClick} />
+      <AudioRecorder/>
+      <EmojiPicker 
+        visible={showEmojiPicker} 
+        position={emojiPickerPosition} 
+        onClose={() => setShowEmojiPicker(false)} 
+        onEmojiClick={onEmojiClick} />
     </div>
   );
 };

@@ -1,27 +1,39 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useContext } from 'react';
 import { List, MagnifyingGlass, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 import ModalHeader from '../Modals/ModalHeader'; // Importe o componente ModalHeader
+import { ControlContext } from '../../../context/ControlContext';
+import { ChatContext } from '../../../context/ChatContext';
 
-const ChatHeader = ({
-  selectedContact,
-  contactProfileImages,
-  toggleSearchBar,
-  searchVisible,
-  searchTerm,
-  setSearchTerm,
-  handleSearchChange,
-  handleSearchKeyPress,
-  toggleSidebar,
-}) => {
-  const [searchActive, setSearchActive] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+const ChatHeader = () => {
+
+  const {
+    toggleSearchBar,
+    searchVisible,
+    searchMessage,
+    setSearchMessage,
+    handleSearchChange,
+    handleSearchKeyPress
+  } = useContext(ChatContext);
+  
+  
+  const { 
+    profileImages, 
+    selectedContact,
+    toggleSidebar,
+    searchActive,
+    setSearchActive,
+    isModalOpen,
+    setIsModalOpen,
+    modalPosition,
+    setModalPosition 
+  
+  } = useContext(ControlContext);
 
   const handleToggleSearch = () => {
     toggleSearchBar();
     setSearchActive(!searchActive);
-    setSearchTerm(""); // Limpa o termo de pesquisa ao alternar a barra de pesquisa
+    setSearchMessage(""); // Limpa o termo de pesquisa ao alternar a barra de pesquisa
   };
 
   const handleDotsClick = (event) => {
@@ -45,7 +57,7 @@ const ChatHeader = ({
     setIsModalOpen(false);
   };
 
-  if (!selectedContact || !contactProfileImages[selectedContact]) {
+  if (!selectedContact || !profileImages[selectedContact]) {
     return null; 
   }
 
@@ -56,7 +68,7 @@ const ChatHeader = ({
           <List size={28} className="text-black" />
         </button>
         <img
-          src={contactProfileImages[selectedContact]}
+          src={profileImages[selectedContact]}
           alt={`${selectedContact}'s Profile`}
           className="w-8 h-8 rounded-full"
         />
@@ -68,7 +80,7 @@ const ChatHeader = ({
           <input
             type="text"
             placeholder="Pesquisar no chat..."
-            value={searchTerm}
+            value={searchMessage}
             onChange={handleSearchChange}
             onKeyPress={handleSearchKeyPress}
             className="p-2 rounded bg-white shadow focus:outline-none text-sm font-semibold text-gray-900 placeholder-gray-500 mr-2"

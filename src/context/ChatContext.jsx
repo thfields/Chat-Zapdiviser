@@ -1,33 +1,97 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState, useContext } from 'react';
+import { ControlContext } from '../context/ControlContext';
 
-// Create the ChatContext
 export const ChatContext = createContext();
 
-// Create the ChatContextProvider component
-export const ChatContextProvider = ({ children }) => {
-    // State for storing chat messages
-    const [messages, setMessages] = useState([]);
 
-    // Function for adding a new message to the chat
-    const addMessage = (message) => {
-        setMessages([...messages, message]);
+export const ChatProvider = ({ children }) => {
+
+  const { selectedContact } = useContext(ControlContext);
+
+    const [searchVisible, setSearchVisible] = useState(false);
+    const [searchMessage, setSearchMessage] = useState("");
+    const [highlightedMessageIndex, setHighlightedMessageIndex] = useState(-1);
+
+    const toggleSearchBar = () => {
+      setSearchVisible(!searchVisible);
+      setSearchMessage("");
+      setHighlightedMessageIndex(-1);
+    };
+  
+    const handleSearchChange = (event) => {
+      setSearchMessage(event.target.value);
+    };
+  
+    const handleSearchKeyPress = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const highlightedMessage = document.querySelector(".highlighted-message");
+        if (highlightedMessage) {
+          const index = parseInt(
+            highlightedMessage.getAttribute("data-index"),
+            10
+          );
+          setHighlightedMessageIndex(index);
+        }
+      }
     };
 
-    const putMessages = (messages) => {
-        setMessages(messages);
+    const highlightText = (text, highlight) => {
+      if (!highlight) return <>{text}</>;
+  
+      const regex = new RegExp(`(${highlight})`, "gi");
+      const parts = text.split(regex);
+  
+      return (
+        <>
+          {parts.map((part, index) =>
+            regex.test(part) ? (
+              <mark key={index} className="bg-yellow-300">
+                {part}
+              </mark>
+            ) : (
+              <React.Fragment key={index}>{part}</React.Fragment>
+            )
+          )}
+        </>
+      );
     };
 
-    const getMessages = () => {
-        return messages;
-    }
-
-    const deleteMessages = () => {
-        setMessages([]);
-    }
-
+    useEffect(() => {
+      if (highlightedMessageIndex !== -1) {
+        const highlightedMessage = document.querySelector(
+          `.message[data-index="${highlightedMessageIndex}"]`
+        );
+        if (highlightedMessage) {
+          highlightedMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+      }
+    }, [highlightedMessageIndex]);
+  
+    useEffect(() => {
+      setSearchMessage("");
+      setSearchVisible(false);
+      setHighlightedMessageIndex(-1);
+    }, [selectedContact]);
+   
     return (
-        <ChatContext.Provider value={{ addMessage, putMessages, getMessages, deleteMessages }}>
+        <ChatContext.Provider value={
+            {
+                searchVisible,
+                toggleSearchBar,
+                searchMessage,
+                setSearchMessage,
+                handleSearchChange,
+                handleSearchKeyPress,
+                highlightText,
+                highlightedMessageIndex,
+                setHighlightedMessageIndex
+            }
+        }>
             {children}
         </ChatContext.Provider>
     );
