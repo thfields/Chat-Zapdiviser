@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useState, useRef, useEffect, useContext } from "react";
 import { DownloadSimple, Checks, CaretDown } from "@phosphor-icons/react";
@@ -91,6 +92,11 @@ const ChatMessages = () => {
     closeModal();
   };
 
+  const handleEdit = () => {
+    navigator.clipboard.writeText(currentMessage.content);
+    closeModal();
+  };
+
   const handleDelete = () => {
     console.log("Delete:", currentMessage);
     closeModal();
@@ -139,6 +145,7 @@ const ChatMessages = () => {
           onClose={closeModal}
           onReply={handleReply}
           onForward={handleForward}
+          onEdit={handleEdit}
           onCopy={handleCopy}
           onDelete={handleDelete}
           position={modalPosition}

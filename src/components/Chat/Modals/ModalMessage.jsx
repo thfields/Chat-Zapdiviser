@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const ModalMessage = ({ onClose, onReply, onForward, onCopy, onDelete, position }) => {
+const ModalMessage = ({ onClose, onReply, onForward, onEdit, onCopy, onDelete, position }) => {
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center" onClick={onClose}>
       <div
@@ -11,6 +11,7 @@ const ModalMessage = ({ onClose, onReply, onForward, onCopy, onDelete, position 
           <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={onReply}>Reply</li>
           <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={onForward}>Forward</li>
           <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={onCopy}>Copy</li>
+          <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={onEdit}>Edit</li>
           <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={onDelete}>Delete</li>
         </ul>
       </div>
