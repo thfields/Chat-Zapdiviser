@@ -4,7 +4,7 @@ import ModalProfile from "../../components/Chat/Modals/ModalProfile";
 import Chat from "../../components/Chat/Chat";
 import Contacts from "../../components/Contacts/Contacts";
 import InicialScreen from "../InicialSreen/InicialSreen";
-import { ChatContext } from '../../context/ChatContext';
+import { ControlContext } from '../../context/ControlContext';
 
 
 const ControlPage = () => {
@@ -21,7 +21,7 @@ const ControlPage = () => {
     handleFileChange,
     handleSendAudio,
   
-  } = useContext(ChatContext);
+  } = useContext(ControlContext);
 
   return (
     <div className="flex flex-col h-screen">

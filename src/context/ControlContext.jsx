@@ -2,8 +2,8 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useState, useEffect } from 'react';
 
-// Create the ChatContext
-export const ChatContext = createContext();
+// Create the ControlContext
+export const ControlContext = createContext();
 
 const contactProfileImages = {
     Vitor: "/src/assets/vitor.png",
@@ -16,8 +16,8 @@ const contactProfileImages = {
   
 
 
-// Create the ChatContextProvider component
-export const ChatContextProvider = ({ children }) => {
+// Create the ControlContextProvider component
+export const ControlContextProvider = ({ children }) => {
 
     // ControlPage e Contacts
     const initialContacts = ["Vitor", "Rickson", "Thiago", "Marcos", "Rodrigo", "Abner"];
@@ -173,7 +173,7 @@ export const ChatContextProvider = ({ children }) => {
 
 
     return (
-        <ChatContext.Provider value={
+        <ControlContext.Provider value={
             {
                 profileImages,
                 initialContacts,
@@ -212,6 +212,6 @@ export const ChatContextProvider = ({ children }) => {
             }
         }>
             {children}
-        </ChatContext.Provider>
+        </ControlContext.Provider>
     );
 };

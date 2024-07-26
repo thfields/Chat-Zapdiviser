@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { User, Gear, SignOut } from "@phosphor-icons/react";
-import { ChatContext } from '../../../context/ChatContext';
+import { ControlContext } from '../../../context/ControlContext';
 import { useContext } from 'react';
 
 
@@ -12,7 +12,7 @@ const ModalProfile = () => {
     setIsModalProfileOpen,
 
   
-  } = useContext(ChatContext);
+  } = useContext(ControlContext);
 
 
   if (!isModalProfileOpen) return null;

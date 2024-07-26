@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext } from 'react';
 import { Chat, MagnifyingGlass } from "@phosphor-icons/react";
-import { ChatContext } from '../../context/ChatContext';
+import { ControlContext } from '../../context/ControlContext';
 
 
 const Contacts = () => {
@@ -15,7 +15,7 @@ const Contacts = () => {
     totalConversations,
     handleContactClick,
   
-  } = useContext(ChatContext);
+  } = useContext(ControlContext);
 
  
   return (

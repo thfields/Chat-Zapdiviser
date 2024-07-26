@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 import { List, MagnifyingGlass, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 import ModalHeader from '../Modals/ModalHeader'; // Importe o componente ModalHeader
-import { ChatContext } from '../../../context/ChatContext';
+import { ControlContext } from '../../../context/ControlContext';
 
 const ChatHeader = () => {
   
@@ -25,7 +25,7 @@ const ChatHeader = () => {
     setModalPosition
     
   
-  } = useContext(ChatContext);
+  } = useContext(ControlContext);
 
   const handleToggleSearch = () => {
     toggleSearchBar();

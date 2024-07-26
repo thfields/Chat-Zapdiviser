@@ -1,11 +1,11 @@
-import { ChatContextProvider } from './context/ChatContext';
+import { ControlContextProvider } from './context/ControlContext';
 import ControlPage from './pages/ControlPage/ControlPage';
 
 const App = () => {
   return (
-    <ChatContextProvider>
+    <ControlContextProvider>
     <ControlPage />
-    </ChatContextProvider>
+    </ControlContextProvider>
   );
 };
 
