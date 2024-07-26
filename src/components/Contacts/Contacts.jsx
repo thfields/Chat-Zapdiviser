@@ -1,20 +1,23 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Chat, MagnifyingGlass } from "@phosphor-icons/react";
+import { ChatContext } from '../../context/ChatContext';
 
-const Contacts = ({ contacts, contactProfileImages, selectedContact, onContactClick }) => {
-  const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+const Contacts = () => {
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const { 
+    profileImages,  
+    handleSearch, 
+    searchTerm, 
+    selectedContact, 
+    filteredContacts,
+    totalConversations,
+    handleContactClick,
+  
+  } = useContext(ChatContext);
 
-  const totalConversations = filteredContacts.length;
-
+ 
   return (
     <div className="border border-gray-300 rounded-lg shadow-md p-4 bg-gray-50 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
@@ -32,7 +35,7 @@ const Contacts = ({ contacts, contactProfileImages, selectedContact, onContactCl
           type="text"
           placeholder="Procurar"
           value={searchTerm}
-          onChange={handleSearchChange}
+          onChange={handleSearch}
           className="pl-10 pr-4 py-2 border rounded-lg w-full border-gray-500 focus:outline-none hover:border-green-500 text-gray-900 placeholder-gray-500"
         />
       </div>
@@ -40,12 +43,12 @@ const Contacts = ({ contacts, contactProfileImages, selectedContact, onContactCl
         {filteredContacts.map(contact => (
           <li
             key={contact}
-            onClick={() => onContactClick(contact)}
+            onClick={() => handleContactClick(contact)}
             className={`p-2 cursor-pointer hover:bg-gray-200 border-b-2 hover:border-b-green-500 rounded-md ${selectedContact === contact ? 'bg-gray-200' : ''}`}
           >
             <div className="flex items-center">
               <img
-                src={contactProfileImages[contact]}
+                src={profileImages[contact]}
                 alt={`${contact} profile`}
                 className="w-10 h-10 rounded-full mr-4"
               />

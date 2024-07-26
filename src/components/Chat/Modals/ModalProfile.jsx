@@ -1,8 +1,21 @@
 /* eslint-disable react/prop-types */
 import { User, Gear, SignOut } from "@phosphor-icons/react";
+import { ChatContext } from '../../../context/ChatContext';
+import { useContext } from 'react';
 
-const ModalProfile = ({ isOpen, onClose, onVerPerfil, onConfiguracoes, onSair }) => {
-  if (!isOpen) return null;
+
+
+const ModalProfile = () => {
+
+  const { 
+    isModalProfileOpen,
+    setIsModalProfileOpen,
+
+  
+  } = useContext(ChatContext);
+
+
+  if (!isModalProfileOpen) return null;
 
   return (
     <div className="absolute bg-white p-4 rounded shadow-md z-50"
@@ -20,8 +33,7 @@ const ModalProfile = ({ isOpen, onClose, onVerPerfil, onConfiguracoes, onSair })
         <li>
           <button
             onClick={() => {
-              onVerPerfil();
-              onClose();
+              setIsModalProfileOpen();
             }}
             className="block w-full text-left py-2 px-4 hover:bg-gray-100"
           >
@@ -31,8 +43,7 @@ const ModalProfile = ({ isOpen, onClose, onVerPerfil, onConfiguracoes, onSair })
         <li>
           <button
             onClick={() => {
-              onConfiguracoes();
-              onClose();
+              setIsModalProfileOpen();
             }}
             className="block w-full text-left py-2 px-4 hover:bg-gray-100"
           >
@@ -42,8 +53,7 @@ const ModalProfile = ({ isOpen, onClose, onVerPerfil, onConfiguracoes, onSair })
         <li>
           <button
             onClick={() => {
-              onSair();
-              onClose();
+              setIsModalProfileOpen();
             }}
             className="block w-full text-left py-2 px-4 hover:bg-gray-100"
           >

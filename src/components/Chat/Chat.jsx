@@ -5,6 +5,7 @@ import ChatMessages from "./ChatMessages/ChatMessages";
 import ChatInput from "./ChatInput/ChatInput";
 import InicialScreen from "../../pages/InicialSreen/InicialSreen";
 
+
 const Chat = ({
   selectedContact,
   contactProfileImages,
