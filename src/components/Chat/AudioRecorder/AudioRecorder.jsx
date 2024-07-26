@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef } from 'react';
 import { Microphone, Stop, PaperPlaneTilt } from "@phosphor-icons/react";
-import { ControlContext } from '../../../context/ControlContext';
+import { useMessages } from '../../../hooks/useMessages';
 
 const AudioRecorder = () => {
 
-  const {handleSendAudio} = useContext(ControlContext);
+  const {handleSendAudio} = useMessages();
 
 
   const [isRecording, setIsRecording] = useState(false);

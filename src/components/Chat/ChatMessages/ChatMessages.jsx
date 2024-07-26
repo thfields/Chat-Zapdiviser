@@ -3,21 +3,26 @@
 import { useContext } from "react";
 import { DownloadSimple, Checks, CaretDown } from "@phosphor-icons/react";
 import ModalMessage from "../Modals/ModalMessage";
-import { MessageContext } from "../../../context/MessageContext";
+import { useMessages } from "../../../hooks/useMessages";
+import { ChatContext } from "../../../context/ChatContext";
 
 
 const ChatMessages = () => {
 
   const {
-    highlightText,
-    searchMessage,
-    highlightedMessageIndex,
     filteredMessages,
     messagesEndRef,
     isModalOpen,
     openModal,
 
-  } = useContext(MessageContext);
+  } = useContext(ChatContext);
+
+  const {
+    highlightText,
+    searchMessage,
+    highlightedMessageIndex,
+    
+  } = useMessages();
 
   return (
     <div className="bg-gray-200 flex-grow p-4 overflow-y-auto h-32">

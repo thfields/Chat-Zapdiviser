@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
-import { MessageContext } from '../../../context/MessageContext';
-import { useContext } from 'react';
+import { useContext } from "react";
+import { useMessages } from "../../../hooks/useMessages";
+import { ChatContext } from "../../../context/ChatContext";
 
 const ModalMessage = () => {
 
+  const { closeModal,  modalPosition } = useContext(ChatContext);
+
   const {
-    closeModal,
     handleReply,
     handleForward,
     handleCopy,
     handleEdit,
-    handleDelete,
-    modalPosition,
-
-  } = useContext(MessageContext);
+    handleDelete
+  } = useMessages();
 
 
   return (

@@ -1,17 +1,28 @@
 /* eslint-disable react/prop-types */
-import React, { createContext, useEffect, useState, useContext } from 'react';
+import { createContext, useEffect, useState, useContext, useRef } from 'react';
 import { ControlContext } from '../context/ControlContext';
+
 
 export const ChatContext = createContext();
 
 
 export const ChatProvider = ({ children }) => {
 
-  const { selectedContact } = useContext(ControlContext);
+  const { 
+    selectedContact ,
+    highlightedMessageIndex,
+    setHighlightedMessageIndex,
+    contactsMessages,
+  } = useContext(ControlContext);
+
+ 
 
     const [searchVisible, setSearchVisible] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentMessage, setCurrentMessage] = useState(null); 
+    const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 }); 
     const [searchMessage, setSearchMessage] = useState("");
-    const [highlightedMessageIndex, setHighlightedMessageIndex] = useState(-1);
+    const messagesEndRef = useRef(null);
 
     const toggleSearchBar = () => {
       setSearchVisible(!searchVisible);
@@ -37,26 +48,6 @@ export const ChatProvider = ({ children }) => {
       }
     };
 
-    const highlightText = (text, highlight) => {
-      if (!highlight) return <>{text}</>;
-  
-      const regex = new RegExp(`(${highlight})`, "gi");
-      const parts = text.split(regex);
-  
-      return (
-        <>
-          {parts.map((part, index) =>
-            regex.test(part) ? (
-              <mark key={index} className="bg-yellow-300">
-                {part}
-              </mark>
-            ) : (
-              <React.Fragment key={index}>{part}</React.Fragment>
-            )
-          )}
-        </>
-      );
-    };
 
     useEffect(() => {
       if (highlightedMessageIndex !== -1) {
@@ -77,6 +68,59 @@ export const ChatProvider = ({ children }) => {
       setSearchVisible(false);
       setHighlightedMessageIndex(-1);
     }, [selectedContact]);
+
+    const filteredMessages = contactsMessages[selectedContact]
+    ? contactsMessages[selectedContact].map((msg, index) => ({
+            ...msg,
+            index,
+          }))
+    : [];
+
+
+    useEffect(() => {
+      scrollToBottom();
+  }, [filteredMessages]);
+  
+  const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  
+  const scrollToHighlightedMessage = (index) => {
+      const highlightedMessage = document.querySelector(`.message[data-index="${index}"]`);
+      if (highlightedMessage) {
+        highlightedMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    };
+  
+    useEffect(() => {
+      if (highlightedMessageIndex !== -1) {
+        scrollToHighlightedMessage(highlightedMessageIndex);
+      }
+    }, [highlightedMessageIndex]);
+
+
+    const openModal = (message, event) => {
+      const rect = event.target.getBoundingClientRect();
+      const windowWidth = window.innerWidth;
+      const modalWidth = 150; // Largura aproximada do modal
+  
+      let left = rect.left + window.scrollX;
+  
+      if (windowWidth - rect.right < modalWidth) {
+        left = rect.left + window.scrollX - modalWidth;
+      }
+  
+      setModalPosition({ top: rect.top + window.scrollY, left });
+      setCurrentMessage(message);
+      setIsModalOpen(true);
+    };
+
+
+    const closeModal = () => {
+      setIsModalOpen(false);
+      setCurrentMessage(null);
+    };
+
    
     return (
         <ChatContext.Provider value={
@@ -87,9 +131,16 @@ export const ChatProvider = ({ children }) => {
                 setSearchMessage,
                 handleSearchChange,
                 handleSearchKeyPress,
-                highlightText,
                 highlightedMessageIndex,
-                setHighlightedMessageIndex
+                setHighlightedMessageIndex,
+                filteredMessages,
+                messagesEndRef,
+                openModal,
+                closeModal,
+                isModalOpen,
+                currentMessage,
+                modalPosition
+              
             }
         }>
             {children}
