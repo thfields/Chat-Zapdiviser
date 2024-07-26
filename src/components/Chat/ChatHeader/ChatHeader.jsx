@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { List, MagnifyingGlass, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 import ModalHeader from '../Modals/ModalHeader'; // Importe o componente ModalHeader
 import { ControlContext } from '../../../context/ControlContext';
@@ -13,7 +13,8 @@ const ChatHeader = () => {
     searchMessage,
     setSearchMessage,
     handleSearchChange,
-    handleSearchKeyPress
+    handleSearchKeyPress,
+
   } = useContext(ChatContext);
   
   
@@ -21,14 +22,14 @@ const ChatHeader = () => {
     profileImages, 
     selectedContact,
     toggleSidebar,
-    searchActive,
-    setSearchActive,
-    isModalOpen,
-    setIsModalOpen,
+
     modalPosition,
     setModalPosition 
   
   } = useContext(ControlContext);
+
+  const [searchActive, setSearchActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleToggleSearch = () => {
     toggleSearchBar();

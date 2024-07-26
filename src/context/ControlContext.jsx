@@ -1,42 +1,29 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { createContext, useState, useEffect } from 'react';
+import { contactProfileImages, initialContacts } from '../data/Mocks';
 
 // Create the ControlContext
 export const ControlContext = createContext();
-
-const contactProfileImages = {
-    Vitor: "/src/assets/vitor.png",
-    Rickson: "/src/assets/sem-foto.png",
-    Thiago: "/src/assets/thiago.png",    
-    Marcos: "/src/assets/marcos.png",
-    Rodrigo: "/src/assets/rodrigo.png",
-    Abner: "/src/assets/sem-foto.png",
-};
-  
-
 
 // Create the ControlContextProvider component
 export const ControlContextProvider = ({ children }) => {
 
     // ControlPage e Contacts
-    const initialContacts = ["Vitor", "Rickson", "Thiago", "Marcos", "Rodrigo", "Abner"];
+
     const [profileImages, setProfileImages] = useState(contactProfileImages);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedContact, setSelectedContact] = useState(null);
     const [contactsMessages, setContactsMessages] = useState({});
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
     const [isModalProfileOpen, setIsModalProfileOpen] = useState(false);
-  
-    
-    // Chat
     const [searchVisible, setSearchVisible] = useState(false);
     const [highlightedMessageIndex, setHighlightedMessageIndex] = useState(-1);
 
 
     // CharHeader
-    const [searchActive, setSearchActive] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
 
@@ -137,10 +124,6 @@ export const ControlContextProvider = ({ children }) => {
                 handleSearchChange,
                 handleSearchKeyPress,
                 filteredMessages,
-                searchActive,
-                setSearchActive,
-                isModalOpen,
-                setIsModalOpen,
                 modalPosition,
                 setModalPosition,
                 setContactsMessages,
