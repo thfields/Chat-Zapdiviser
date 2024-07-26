@@ -4,25 +4,26 @@ import { Paperclip, Smiley } from "@phosphor-icons/react";
 import EmojiPicker from "../EmojiPicker/EmojiPicker";
 import AudioRecorder from "../AudioRecorder/AudioRecorder";
 import { ControlContext } from '../../../context/ControlContext';
+import { useMessages } from '../../../hooks/useMessages';
 
 const ChatInput = () => {
   
   const {
     selectedContact,
-    handleSendMessage,
-    handleFileChange,
   } = useContext(ControlContext);
 
 
+  const {
+    handleSendMessage,
+    handleFileChange,
+  } = useMessages();
+
   
+
   const [messageInput, setMessageInput] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiPickerPosition, setEmojiPickerPosition] = useState({ top: 0, left: 0 });
   const emojiButtonRef = useRef(null);
-
-  const handleInputChange = (event) => {
-    setMessageInput(event.target.value);
-  };
 
   const handleSendMessages = () => {
     if (messageInput.trim() === '' || !selectedContact) {
@@ -73,7 +74,7 @@ const ChatInput = () => {
         className="message-input flex-grow py-2 px-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
         placeholder={`Enviar mensagem para ${selectedContact}`}
         value={messageInput}
-        onChange={handleInputChange}
+        onChange={(e) => setMessageInput(e.target.value)}
         onKeyPress={handleKeyPress}
       />
       <AudioRecorder/>

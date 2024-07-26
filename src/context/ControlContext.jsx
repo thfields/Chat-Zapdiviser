@@ -108,45 +108,7 @@ export const ControlContextProvider = ({ children }) => {
     };
 
 
-    const handleSendMessage = (contact, message) => {
-        const newMessage = {
-          sender: "Me",
-          content: message,
-          file: null,
-        };
-        setContactsMessages({
-          ...contactsMessages,
-          [contact]: [...contactsMessages[contact], newMessage],
-        });
-    };
-    
-    const handleFileChange = (event, contact) => {
-        const file = event.target.files[0];
-        if (file && contact) {
-          const newMessage = {
-            sender: "Me",
-            content: file.name,
-            file: URL.createObjectURL(file),
-          };
-          setContactsMessages({
-            ...contactsMessages,
-            [contact]: [...contactsMessages[contact], newMessage],
-          });
-        }
-    };
-    
-    const handleSendAudio = (audioBlob) => {
-        const url = URL.createObjectURL(audioBlob);
-        const newMessage = {
-          sender: "Me",
-          content: "Audio message",
-          file: url,
-        };
-        setContactsMessages({
-          ...contactsMessages,
-          [selectedContact]: [...contactsMessages[selectedContact], newMessage],
-        });
-    };
+
     
 
 
@@ -161,9 +123,6 @@ export const ControlContextProvider = ({ children }) => {
                 handleContactClick,
                 toggleSidebar,
                 toggleModalProfile,
-                handleSendMessage,
-                handleFileChange,
-                handleSendAudio,
                 isModalProfileOpen, 
                 setIsModalProfileOpen,
                 isSidebarVisible,
@@ -184,7 +143,7 @@ export const ControlContextProvider = ({ children }) => {
                 setIsModalOpen,
                 modalPosition,
                 setModalPosition,
-            
+                setContactsMessages,
 
             }
         }>
