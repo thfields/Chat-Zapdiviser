@@ -1,36 +1,62 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { Paperclip, Smiley } from "@phosphor-icons/react";
 import EmojiPicker from "../EmojiPicker/EmojiPicker";
 import AudioRecorder from "../AudioRecorder/AudioRecorder";
 import { ControlContext } from '../../../context/ControlContext';
+import { ChatContext } from '../../../context/ChatContext';
 import { useMessages } from '../../../hooks/useMessages';
 
 const ChatInput = () => {
   
   const {
     selectedContact,
+    contactsMessages,
   } = useContext(ControlContext);
+
+  const {
+    messageInput,
+    setMessageInput,
+    setEditingMessageId,
+    editingMessageId,
+  } = useContext(ChatContext);
 
 
   const {
     handleSendMessage,
     handleFileChange,
+    handleEditMessage,
   } = useMessages();
 
   
-
-  const [messageInput, setMessageInput] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiPickerPosition, setEmojiPickerPosition] = useState({ top: 0, left: 0 });
   const emojiButtonRef = useRef(null);
+
+
+  useEffect(() => {
+    if (editingMessageId && contactsMessages[selectedContact]) {
+      const currentMessage = contactsMessages[selectedContact].find(msg => msg.id === editingMessageId);
+      if (currentMessage) {
+        setMessageInput(currentMessage.content);
+      }
+    } else {
+      setMessageInput('');
+    }
+  }, [editingMessageId, contactsMessages, selectedContact]);
 
   const handleSendMessages = () => {
     if (messageInput.trim() === '' || !selectedContact) {
       return;
     }
 
-    handleSendMessage(selectedContact, messageInput.trim());
+    if (editingMessageId) {
+      handleEditMessage(selectedContact, editingMessageId, messageInput.trim());
+      setEditingMessageId(null); // Limpa o ID da mensagem editada
+    } else {
+      handleSendMessage(selectedContact, messageInput.trim());
+    }
+
     setMessageInput('');
   };
 
