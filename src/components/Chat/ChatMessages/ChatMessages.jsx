@@ -6,22 +6,18 @@ import ModalMessage from "../Modals/ModalMessage";
 import { useMessages } from "../../../hooks/useMessages";
 import { ChatContext } from "../../../context/ChatContext";
 
-
 const ChatMessages = () => {
-
   const {
     filteredMessages,
     messagesEndRef,
     isModalOpen,
     openModal,
-
   } = useContext(ChatContext);
 
   const {
     highlightText,
     searchMessage,
     highlightedMessageIndex,
-    
   } = useMessages();
 
   return (
