@@ -50,6 +50,17 @@ export const useMessages = () => {
     });
   };
 
+  const handleEditMessage = (contact, messageId, newContent) => {
+    const updatedMessages = (contactsMessages[contact] || []).map(msg =>
+      msg.id === messageId ? { ...msg, content: newContent } : msg
+    );
+
+    setContactsMessages({
+      ...contactsMessages,
+      [contact]: updatedMessages,
+    });
+  };
+
   const handleFileChange = (event, contact) => {
     const file = event.target.files[0];
     if (file && contact) {
@@ -101,18 +112,7 @@ export const useMessages = () => {
     closeModal();
   };
 
-  const handleEdit = () => {
-    if (currentMessage) {
-      const updatedMessages = contactsMessages[selectedContact].map((msg) =>
-        msg.id === currentMessage.id ? { ...msg, content: `Edited: ${msg.content}` } : msg
-      );
-      setContactsMessages({
-        ...contactsMessages,
-        [selectedContact]: updatedMessages,
-      });
-    }
-    closeModal();
-  };
+
 
   const handleDelete = () => {
     if (currentMessage) {
@@ -135,7 +135,7 @@ export const useMessages = () => {
     handleReply,
     handleForward,
     handleCopy,
-    handleEdit,
+    handleEditMessage,
     handleDelete,
     handleSendMessage,
     handleFileChange,

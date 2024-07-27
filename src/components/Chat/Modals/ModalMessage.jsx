@@ -5,15 +5,22 @@ import { ChatContext } from "../../../context/ChatContext";
 
 const ModalMessage = () => {
 
-  const { closeModal,  modalPosition } = useContext(ChatContext);
+  const { closeModal,  modalPosition, currentMessage, setEditingMessageId, setMessageInput } = useContext(ChatContext);
 
   const {
-    handleReply,
-    handleForward,
+    // handleReply,
+    // handleForward,
     handleCopy,
-    handleEdit,
-    handleDelete
+    handleDelete,
   } = useMessages();
+
+  const handleEdit = () => {
+    if (currentMessage) {
+      setEditingMessageId(currentMessage.id);
+      setMessageInput(currentMessage.content); // Atualiza o estado do ChatInput
+      closeModal(); // Fecha o modal
+    }
+  };
 
 
   return (
@@ -24,8 +31,8 @@ const ModalMessage = () => {
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
       >
         <ul>
-          <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={handleReply}>Reply</li>
-          <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={handleForward}>Forward</li>
+          {/* <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={handleReply}>Reply</li>
+          <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={handleForward}>Forward</li> */}
           <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={handleCopy}>Copy</li>
           <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={handleEdit}>Edit</li>
           <li className="py-2 px-4 hover:bg-gray-200 cursor-pointer" onClick={handleDelete}>Delete</li>

@@ -22,6 +22,10 @@ export const ChatProvider = ({ children }) => {
     const [currentMessage, setCurrentMessage] = useState(null); 
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 }); 
     const [searchMessage, setSearchMessage] = useState("");
+
+    const [editingMessageId, setEditingMessageId] = useState(null);
+    const [messageInput, setMessageInput] = useState('');
+
     const messagesEndRef = useRef(null);
 
     const toggleSearchBar = () => {
@@ -139,7 +143,11 @@ export const ChatProvider = ({ children }) => {
                 closeModal,
                 isModalOpen,
                 currentMessage,
-                modalPosition
+                modalPosition,
+                editingMessageId,
+                setEditingMessageId,
+                messageInput,
+                setMessageInput,
               
             }
         }>
