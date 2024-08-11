@@ -37,6 +37,12 @@ export const useMessages = () => {
     );
   };
 
+
+  const getLastMessage = (contact) => {
+    const messages = contactsMessages[contact] || [];
+    return messages[messages.length - 1];
+  };
+
   const handleSendMessage = (contact, message) => {
     const newMessage = {
       sender: "Me",
@@ -140,5 +146,6 @@ export const useMessages = () => {
     handleSendMessage,
     handleFileChange,
     handleSendAudio,
+    getLastMessage,
   };
 };

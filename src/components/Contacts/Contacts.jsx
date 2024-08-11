@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import { useContext } from 'react';
 import { Chat, MagnifyingGlass } from "@phosphor-icons/react";
 import { ControlContext } from '../../context/ControlContext';
-
+import { useMessages } from '../../hooks/useMessages';
+import { Checks } from "@phosphor-icons/react";
 
 const Contacts = () => {
-
   const { 
     profileImages,  
     handleSearch, 
@@ -14,10 +13,11 @@ const Contacts = () => {
     filteredContacts,
     totalConversations,
     handleContactClick,
-  
   } = useContext(ControlContext);
 
- 
+  const { getLastMessage } = useMessages();
+  const MAX_MESSAGE_LENGTH = 30; // ou o número de caracteres que preferir
+
   return (
     <div className="border border-gray-300 rounded-lg shadow-md p-4 bg-gray-50 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
@@ -40,22 +40,41 @@ const Contacts = () => {
         />
       </div>
       <ul className="flex-1 overflow-y-auto">
-        {filteredContacts.map(contact => (
-          <li
-            key={contact}
-            onClick={() => handleContactClick(contact)}
-            className={`p-2 cursor-pointer hover:bg-gray-200 border-b-2 hover:border-b-green-500 rounded-md ${selectedContact === contact ? 'bg-gray-200' : ''}`}
-          >
-            <div className="flex items-center">
-              <img
-                src={profileImages[contact]}
-                alt={`${contact} profile`}
-                className="w-10 h-10 rounded-full mr-4"
-              />
-              <span>{contact}</span>
-            </div>
-          </li>
-        ))}
+        {filteredContacts.map(contact => {
+          const lastMessage = getLastMessage(contact);
+          return (
+            <li
+              key={contact}
+              onClick={() => handleContactClick(contact)}
+              className={`p-2 cursor-pointer hover:bg-gray-200 border-b-2 hover:border-b-green-500 rounded-md ${selectedContact === contact ? 'bg-gray-200' : ''}`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <img
+                    src={profileImages[contact]}
+                    alt={`${contact} profile`}
+                    className="w-10 h-10 rounded-full mr-4"
+                  />
+                  <div>
+                    <span>{contact}</span>
+                    <div className="text-xs text-gray-500">
+                      {lastMessage ? new Date(lastMessage.id).toLocaleString() : ""}
+                    </div>
+                    <p className="text-xs text-gray-500 flex items-center">
+                      {lastMessage ? (
+                        lastMessage.content.length > MAX_MESSAGE_LENGTH
+                          ? `${lastMessage.content.slice(0, MAX_MESSAGE_LENGTH)}...`
+                          : lastMessage.content
+                      ) : []}
+                      {lastMessage && <Checks size={15} className="ml-1" />}
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
