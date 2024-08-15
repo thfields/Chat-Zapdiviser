@@ -4,7 +4,7 @@ const InicialSreen = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full border border-gray-300 rounded-lg shadow-md">
         <img
-        src="/src/assets/whatsapp.png"
+        src="/src/assets/whatsapp.jpeg"
         alt="Logo"
         className="mb-4 w-100 h-60"
         />
